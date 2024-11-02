@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "a408e4e7-73d9-402e-97fe-674a10b68c44",
+		"name": "avaliacao",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5367091"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"teste@teste.com\",\n    \"password\": \"12345678\",\n    \"fullName\": \"Andrews Balbino Campos\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9045/users/register"
+			},
+			"response": []
+		},
+		{
+			"name": "ListProduct",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const body = {",
+							"    url: 'http://localhost:9045/auth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"teste@teste.com\",",
+							"            \"password\": \"12345678\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(body, function(err, res) {",
+							"    if (!err && res.code === 200) {  ",
+							"        let token = res.json().token;",
+							"        pm.collectionVariables.set('token', 'Bearer ' + token);",
+							"    } else {",
+							"        console.error(\"Failed to retrieve token:\", err || res.status);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9045/api/product"
+			},
+			"response": []
+		},
+		{
+			"name": "product by id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const body = {",
+							"    url: 'http://localhost:9045/auth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"teste@teste.com\",",
+							"            \"password\": \"12345678\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(body, function(err, res) {",
+							"    if (!err && res.code === 200) {  ",
+							"        let token = res.json().token;",
+							"        pm.collectionVariables.set('token', 'Bearer ' + token);",
+							"    } else {",
+							"        console.error(\"Failed to retrieve token:\", err || res.status);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:9045/api/product/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const body = {",
+							"    url: 'http://localhost:9045/auth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"teste@teste.com\",",
+							"            \"password\": \"12345678\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(body, function(err, res) {",
+							"    if (!err && res.code === 200) {  ",
+							"        let token = res.json().token;",
+							"        pm.collectionVariables.set('token', 'Bearer ' + token);",
+							"    } else {",
+							"        console.error(\"Failed to retrieve token:\", err || res.status);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:9045/api/product/1"
+			},
+			"response": []
+		},
+		{
+			"name": "register product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const body = {",
+							"    url: 'http://localhost:9045/auth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"teste@teste.com\",",
+							"            \"password\": \"12345678\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(body, function(err, res) {",
+							"    if (!err && res.code === 200) {  ",
+							"        let token = res.json().token;",
+							"        pm.collectionVariables.set('token', 'Bearer ' + token);",
+							"    } else {",
+							"        console.error(\"Failed to retrieve token:\", err || res.status);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Produto Exemplo\",\n    \"descricao\": \"Descrição do Produto Exemplo\",\n    \"preco\": 99.99\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9045/api/product"
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const body = {",
+							"    url: 'http://localhost:9045/auth/token',",
+							"    method: 'POST',",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"teste@teste.com\",",
+							"            \"password\": \"12345678\"",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(body, function(err, res) {",
+							"    if (!err && res.code === 200) {  ",
+							"        let token = res.json().token;",
+							"        pm.collectionVariables.set('token', 'Bearer ' + token);",
+							"    } else {",
+							"        console.error(\"Failed to retrieve token:\", err || res.status);",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Produto Exemplo\",\n    \"descricao\": \"Descrição do Produto Exemplo\",\n    \"preco\": 5000.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:9045/api/product/1"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

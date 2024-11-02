@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: avaliacao
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432" 
+
+  app:
+    build: 
+      context: .  
+      dockerfile: Dockerfile  # Nome do arquivo Dockerfile, se for o padrão, pode ser omitido
+    container_name: avaliacao
+    ports:
+      - "9045:9045"
+    depends_on:
+      - postgres
+ 

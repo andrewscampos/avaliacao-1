@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    hikari: 
+      connectionTimeout: 200000
+      maximumPoolSize: 20
+    driver-class-name: org.postgresql.Driver
+    url:  jdbc:postgresql://postgres_db:5432/avaliacao
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    
+
+security:
+  jwt:
+    secret-key: 3cfa75ef14937c1c0ea520f7fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expiration-time: 3600000
+
+server:
+  port: 9045
