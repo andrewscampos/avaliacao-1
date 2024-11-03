@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avaliacao.model.User;
-import br.com.avaliacao.request.RegisterUserRequest;
+import br.com.avaliacao.request.UserRequest;
 import br.com.avaliacao.response.UserResponse;
 import br.com.avaliacao.service.UserService;
 
@@ -28,7 +28,7 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<UserResponse> register(@RequestBody @Valid RegisterUserRequest registerUserRequest) {
+	public ResponseEntity<UserResponse> register(@RequestBody @Valid UserRequest registerUserRequest) {
 		UserResponse signup = userService.register(registerUserRequest);
 		return ResponseEntity.ok(signup);
 	}

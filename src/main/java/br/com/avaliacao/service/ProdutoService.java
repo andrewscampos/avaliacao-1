@@ -6,35 +6,42 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.avaliacao.mapper.ProdutoMappper;
 import br.com.avaliacao.model.Produto;
 import br.com.avaliacao.model.repository.ProdutoRepository;
+import br.com.avaliacao.request.ProdutoRequest;
+import br.com.avaliacao.response.ProdutoResponse;
 
 @Service
 public class ProdutoService {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoMappper produtoMappper;
 
-	public Produto createProduto(Produto produto) {
-		return produtoRepository.save(produto);
+	public ProdutoResponse createProduto(ProdutoRequest request) {
+		 Produto produto = produtoRepository.save(produtoMappper.toModel(request));
+		 return produtoMappper.toResponse(produto);
 	}
 
-	public List<Produto> getAllProdutos() {
-		return produtoRepository.findAll();
+	public List<ProdutoResponse> getAllProdutos() {
+		return produtoRepository.findAll().stream().map(a -> produtoMappper.toResponse(a)).toList();
 	}
 
-	public Optional<Produto> findById(Long id) {
-		return produtoRepository.findById(id);
+	public Optional<ProdutoResponse> findById(Long id) {
+		return Optional.of(produtoMappper.toResponse(produtoRepository.findById(id).orElse(null)));
 	}
 
-	public Produto update(Long id, Produto produto) {
+	public ProdutoResponse update(Long id, ProdutoRequest produto) {
 		Optional<Produto> existingProduto = produtoRepository.findById(id);
 		if (existingProduto.isPresent()) {
 			Produto produtoToUpdate = existingProduto.get();
 			produtoToUpdate.setNome(produto.getNome());
 			produtoToUpdate.setDescricao(produto.getDescricao());
 			produtoToUpdate.setPreco(produto.getPreco());
-			return produtoRepository.save(produtoToUpdate);
+			return produtoMappper.toResponse(produtoRepository.save(produtoToUpdate));
 		}
 		return null;
 	}

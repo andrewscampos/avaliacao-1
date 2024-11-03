@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.avaliacao.model.Produto;
+import br.com.avaliacao.request.ProdutoRequest;
+import br.com.avaliacao.response.ProdutoResponse;
 import br.com.avaliacao.service.ProdutoService;
 
 @RestController
@@ -26,26 +27,26 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping
-    public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
-        Produto novoProduto = produtoService.createProduto(produto);
+    public ResponseEntity<ProdutoResponse> createProduto(@RequestBody ProdutoRequest produto) {
+        ProdutoResponse novoProduto = produtoService.createProduto(produto);
         return ResponseEntity.ok(novoProduto);
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> getAllProdutos() {
-        List<Produto> produtos = produtoService.getAllProdutos();
+    public ResponseEntity<List<ProdutoResponse>> getAllProdutos() {
+        List<ProdutoResponse> produtos = produtoService.getAllProdutos();
         return ResponseEntity.ok(produtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> findById(@PathVariable Long id) {
-        Optional<Produto> produto = produtoService.findById(id);
+    public ResponseEntity<ProdutoResponse> findById(@PathVariable Long id) {
+        Optional<ProdutoResponse> produto = produtoService.findById(id);
         return produto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
-        Produto updatedProduto = produtoService.update(id, produto);
+    public ResponseEntity<ProdutoResponse> update(@PathVariable Long id, @RequestBody ProdutoRequest produto) {
+    	ProdutoResponse updatedProduto = produtoService.update(id, produto);
         return updatedProduto != null ? ResponseEntity.ok(updatedProduto) : ResponseEntity.notFound().build();
     }
 

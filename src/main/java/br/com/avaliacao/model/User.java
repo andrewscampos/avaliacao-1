@@ -21,13 +21,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Table(name = "users")
 @Entity
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@Data
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 2231683012780490544L;
@@ -85,6 +87,9 @@ public class User implements UserDetails {
 		return true;
 	}
 
+	 
+
+	
 	 
 
 }

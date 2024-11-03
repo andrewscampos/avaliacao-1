@@ -20,7 +20,7 @@ public class CustomValidationExceptionHandler {
 	}
 
 	@ExceptionHandler({ UserAlreadyExistsException.class })
-	public ResponseEntity<Map<String, String>> handleValidatisonExceptions(UserAlreadyExistsException ex) {
+	public ResponseEntity<Map<String, String>> userAlreadyExistsException(UserAlreadyExistsException ex) {
 		Map<String, String> errors = generateResponse(ex);
 		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 	}
